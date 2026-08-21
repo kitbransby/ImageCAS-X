@@ -1,0 +1,44 @@
+{
+    "method_name": "imagecas_stage2_coarse_dilated",
+    "description": "ImageCAS Stage 2: coarse 3D U-Net trained on a DILATED GT mask (Eq. 2 weighted loss) to produce a well-connected mask for Stage 3 patch-centre extraction. Zeng et al. CMIG 2023.",
+    "input_type": "volume",
+    "output_type": "mask_sigmoid",
+    "preprocessing": {
+        "steps": [
+            "dilate_mask",
+            "resample_to_shape",
+            "normalise_to_range"
+        ],
+        "params": {
+            "dilate_mask": {
+                "radius": 5
+            },
+            "resample_to_shape": {
+                "target_shape": [
+                    128,
+                    128,
+                    64
+                ]
+            }
+        }
+    },
+    "model": {
+        "name": "imagecas_coarse",
+        "params": {
+            "in_channels": 1,
+            "base_ch": 32
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "weighted_sim",
+        "params": {
+            "a": 0.01,
+            "smooth": 1.0
+        }
+    },
+    "training": {
+        "batch_size": 8,
+        "lr": 0.0001
+    }
+}

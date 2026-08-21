@@ -1,0 +1,21 @@
+__pycache__/
+/notebooks
+CLAUDE.md
+.claude/
+.github/
+utils/generate_plots.py
+
+# Build / install artefacts
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Editor / OS
+.ipynb_checkpoints/
+.DS_Store
+
+# Model weights and cached arrays
+*.pt
+*.pth
+*.npy

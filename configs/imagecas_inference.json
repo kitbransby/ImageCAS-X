@@ -1,0 +1,45 @@
+{
+    "method_name": "imagecas_baseline",
+    "description": "ImageCAS 3-stage baseline: 3D U-Net (coarse) + 3D U-Net (dilated) + 3x 3D U-Net++ (patch 16/32/64). Zeng et al. CMIG 2023.",
+    "input_type": "volume",
+    "output_type": "mask",
+    "data": {
+        "params": {}
+    },
+    "model": {
+        "name": "imagecas_baseline",
+        "params": {
+            "in_channels": 1,
+            "base_ch_coarse": 32,
+            "base_ch_dilated": 32,
+            "base_ch_patch": 32,
+            "patch_sizes": [
+                16,
+                32,
+                64
+            ],
+            "use_dilation": true,
+            "dilation_radius": 5,
+            "coarse_input_shape": [
+                128,
+                128,
+                64
+            ]
+        },
+        "coarse_checkpoint": null,
+        "dilated_checkpoint": null,
+        "patch_checkpoint_16": null,
+        "patch_checkpoint_32": null,
+        "patch_checkpoint_64": null,
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "dice",
+        "params": {}
+    },
+    "training": {
+        "batch_size": 8,
+        "epochs": 30,
+        "lr": 0.01
+    }
+}

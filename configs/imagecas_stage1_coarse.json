@@ -1,0 +1,37 @@
+{
+    "method_name": "imagecas_stage1_coarse",
+    "description": "ImageCAS Stage 1: coarse 3D U-Net on a 128x128x64 downsampled volume. Zeng et al. CMIG 2023.",
+    "input_type": "volume",
+    "output_type": "mask_sigmoid",
+    "preprocessing": {
+        "steps": [
+            "resample_to_shape",
+            "normalise_to_range"
+        ],
+        "params": {
+            "resample_to_shape": {
+                "target_shape": [
+                    128,
+                    128,
+                    64
+                ]
+            }
+        }
+    },
+    "model": {
+        "name": "imagecas_coarse",
+        "params": {
+            "in_channels": 1,
+            "base_ch": 32
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "dice",
+        "params": {}
+    },
+    "training": {
+        "batch_size": 8,
+        "lr": 0.01
+    }
+}

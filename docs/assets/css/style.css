@@ -1,0 +1,608 @@
+/* ==========================================================================
+   ImageCAS-X — project page
+
+   Deliberately plain: baby blue bands on a near-white paper, Nunito
+   throughout, no illustration, no decorative accents. `--band` is #cfe2f3 —
+   sampled straight out of the graphical abstract — so the nav, header and
+   footer are the same blue as the figure and it reads as part of the page.
+   The band is light, so text on it is dark: use --text-on-band, never white.
+   Emphasis comes from weight, rules and whitespace. All colour goes through
+   the custom properties below so the dark-mode block at the end only has to
+   override these — never hardcode a colour in a rule.
+   ========================================================================== */
+
+/* Nunito, self-hosted (variable, 400–800) so the page has no external
+   dependency and no third-party request. Files in assets/fonts/. */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/nunito-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/nunito-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --paper:          #fbfdff;
+  --paper-2:        #eef4fa;
+  --band:           #cfe2f3;   /* nav + header + footer, straight from the figure */
+  --band-line:      rgba(15, 36, 54, 0.22);   /* borders on the band */
+  --band-line-hover:rgba(15, 36, 54, 0.55);
+  --band-wash:      rgba(255, 255, 255, 0.55); /* button hover on the band */
+
+  --rule:           #dde7f0;
+  --rule-strong:    #adc0d2;
+
+  --text:           #0f1a24;
+  --text-2:         #4a5866;
+  --text-3:         #66727f;
+  --text-on-band:   #0f2436;
+  --text-on-band-2: #3c5670;
+
+  --link:           #1560a8;
+  --link-hover:     #0e4680;
+
+  --font-sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --max-width: 940px;
+  --gutter: 24px;
+  --measure: 70ch;
+  --nav-h: 52px;
+
+  font-size: 16px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.62;
+  color: var(--text);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+
+sup { font-size: 0.68em; line-height: 0; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--band);
+  color: var(--text-on-band);
+  padding: 10px 16px;
+  text-decoration: none;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky nav
+   -------------------------------------------------------------------------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--band);
+}
+
+.site-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--nav-h);
+}
+
+.site-nav .brand {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-on-band);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.site-nav ul::-webkit-scrollbar { display: none; }
+
+.site-nav a.nav-link {
+  display: block;
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+  color: var(--text-on-band-2);
+  text-decoration: none;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.site-nav a.nav-link:hover { color: var(--text-on-band); }
+
+.site-nav a.nav-link.is-active {
+  color: var(--text-on-band);
+  border-bottom-color: var(--text-on-band);
+}
+
+/* --------------------------------------------------------------------------
+   Header block
+   -------------------------------------------------------------------------- */
+
+.hero {
+  background: var(--band);
+  color: var(--text-on-band);
+  padding: clamp(36px, 4vw, 52px) 0 clamp(28px, 3.5vw, 40px);
+}
+
+.hero h1 {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.1rem);
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 20px;
+  max-width: 46ch;
+  text-wrap: balance;
+}
+
+.hero .authors {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 0 8px;
+  max-width: 82ch;
+}
+
+.hero .affiliations {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-on-band-2);
+  margin: 0 0 22px;
+  max-width: 82ch;
+}
+
+/* --------------------------------------------------------------------------
+   Links styled as buttons
+   -------------------------------------------------------------------------- */
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 17px;
+  border: 1px solid var(--rule-strong);
+  color: var(--text);
+  background: transparent;
+  font-size: 0.86rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.btn svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  opacity: 0.75;
+}
+
+.hero .btn {
+  border-color: var(--band-line);
+  color: var(--text-on-band);
+}
+.hero .btn:hover {
+  background: var(--band-wash);
+  border-color: var(--band-line-hover);
+  color: var(--text-on-band);
+}
+
+.btn[aria-disabled="true"] {
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+
+section {
+  scroll-margin-top: var(--nav-h);
+  padding: clamp(40px, 5vw, 64px) 0;
+}
+
+section + section .container { border-top: 1px solid var(--rule); padding-top: clamp(40px, 5vw, 64px); }
+section + section { padding-top: 0; }
+
+.section-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+}
+
+section p { max-width: var(--measure); }
+
+/* --------------------------------------------------------------------------
+   Overview figure — sits directly under the header, above the abstract
+   -------------------------------------------------------------------------- */
+
+.section-figure { padding-bottom: 0; }
+
+figure { margin: 0; }
+
+/* The graphical abstract is on a white ground, so it needs a hairline to sit
+   against the paper (and not float in dark mode). */
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+/* --------------------------------------------------------------------------
+   Highlights — the paper's contributions as plain bullets
+   -------------------------------------------------------------------------- */
+
+.highlights {
+  margin: 0;
+  padding-left: 1.15em;
+  max-width: var(--measure);
+}
+
+.highlights li {
+  margin-bottom: 10px;
+  padding-left: 0.25em;
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+.highlights li:last-child { margin-bottom: 0; }
+
+.highlights li::marker { color: var(--text-3); }
+
+/* --------------------------------------------------------------------------
+   Results table — booktabs: horizontal rules only, no fills, tabular figures
+   -------------------------------------------------------------------------- */
+
+.table-caption {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin: 0 0 14px;
+  max-width: 88ch;
+}
+.table-caption b { color: var(--text); font-weight: 600; }
+
+.table-wrap { overflow-x: auto; }
+
+table.results {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  border-top: 1.25px solid var(--text);
+}
+
+table.results th,
+table.results td {
+  padding: 9px 8px;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+table.results th:first-child,
+table.results td:first-child { padding-left: 0; }
+table.results th:last-child,
+table.results td:last-child { padding-right: 0; }
+
+table.results thead th {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+table.results thead th.group {
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding-bottom: 0;
+}
+
+/* \cmidrule: rule under the group label, stopping short of the cell edge */
+table.results thead th.group > span {
+  display: block;
+  padding: 0 14px 7px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+table.results thead tr:last-child th {
+  border-bottom: 1px solid var(--text);
+  font-size: 0.78rem;
+  padding-top: 11px;
+  padding-bottom: 8px;
+}
+
+/* "Method" spans both header rows, so it needs the midrule applied directly. */
+table.results thead th[rowspan] {
+  vertical-align: bottom;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 8px;
+}
+
+table.results thead th .arrow {
+  font-style: normal;
+  color: var(--text-3);
+  font-size: 0.85em;
+}
+
+table.results tbody th[scope="row"] {
+  font-weight: 400;
+  padding-right: 22px;
+}
+
+table.results tbody tr + tr th,
+table.results tbody tr + tr td { border-top: 1px solid var(--rule); }
+
+table.results .method {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+table.results .method-src {
+  display: block;
+  font-size: 0.73rem;
+  line-height: 1.4;
+  color: var(--text-3);
+  margin-top: 1px;
+}
+
+table.results td.metric,
+table.results th.metric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+table.results td.metric {
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+table.results .sd {
+  font-size: 0.8em;
+  color: var(--text-3);
+}
+
+/* Best per metric — weight, not colour */
+table.results td.best {
+  font-weight: 700;
+  color: var(--text);
+}
+
+table.results td.pending { color: var(--text-3); }
+
+/* Reference block (expert analysts), separated by a midrule */
+table.results tbody.tbody-reference tr:first-child th,
+table.results tbody.tbody-reference tr:first-child td {
+  border-top: 1px solid var(--text);
+}
+
+table.results tbody:last-of-type tr:last-child th,
+table.results tbody:last-of-type tr:last-child td {
+  border-bottom: 1.25px solid var(--text);
+}
+
+.table-note {
+  margin-top: 14px;
+  font-size: 0.79rem;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: 88ch;
+}
+.table-note b { color: var(--text); font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   Citation
+   -------------------------------------------------------------------------- */
+
+.citation-block {
+  position: relative;
+  max-width: 80ch;
+}
+
+pre.bibtex {
+  margin: 0;
+  padding: 22px 24px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--paper);
+  color: var(--text-2);
+  border: 1px solid var(--rule-strong);
+  padding: 4px 11px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.copy-btn:hover { color: var(--text); border-color: var(--text); }
+.copy-btn.is-copied { color: var(--text); border-color: var(--text); }
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  max-width: var(--measure);
+}
+
+.contact-list .role {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+
+.contact-list .name {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.contact-list a {
+  font-size: 0.88rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.contact-list a:hover { border-color: currentColor; }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+footer {
+  margin-top: clamp(40px, 5vw, 64px);
+  background: var(--band);
+  color: var(--text-on-band-2);
+  padding: 32px 0;
+  font-size: 0.78rem;
+}
+
+footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 28px;
+}
+
+footer p { margin: 0; }
+
+footer a {
+  color: var(--text-on-band-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--band-line);
+}
+footer a:hover { color: var(--text-on-band); border-color: currentColor; }
+
+/* --------------------------------------------------------------------------
+   Dark mode — override the tokens only
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:          #0c1219;
+    --paper-2:        #141d28;
+    /* The band inverts in dark mode: a deep tint of the same hue, with light
+       text on it. --band-line/--band-wash flip from dark-on-light to
+       light-on-dark to match. */
+    --band:           #16283a;
+    --band-line:      rgba(207, 226, 243, 0.24);
+    --band-line-hover:rgba(207, 226, 243, 0.6);
+    --band-wash:      rgba(207, 226, 243, 0.1);
+
+    --rule:           #223041;
+    --rule-strong:    #3a4b60;
+
+    --text:           #e9eef5;
+    --text-2:         #97a5b8;
+    --text-3:         #758497;
+    --text-on-band:   #e4eef8;
+    --text-on-band-2: #a8c2dc;
+
+    --link:           #7fb4ea;
+    --link-hover:     #a5cbf2;
+
+    color-scheme: dark;
+  }
+
+  footer { border-top: 1px solid var(--rule); }
+}

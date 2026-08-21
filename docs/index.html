@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ImageCAS-X — Coronary Artery Segmentation Benchmark</title>
+<meta name="description" content="ImageCAS-X: voxel-wise lumen, coronary segment, centerline and mesh annotations for 800 CCTA scans of the public ImageCAS CCTA cohort, with a benchmark of established coronary lumen segmentation methods." />
+<meta name="theme-color" content="#cfe2f3" />
+<link rel="preload" href="assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#highlights">Skip to content</a>
+
+<nav class="site-nav">
+  <div class="container">
+    <a class="brand" href="#top">ImageCAS-X</a>
+    <ul>
+      <li><a class="nav-link" href="#highlights">Highlights</a></li>
+      <li><a class="nav-link" href="#benchmark">Benchmark</a></li>
+      <li><a class="nav-link" href="#citation">Citation</a></li>
+      <li><a class="nav-link" href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container">
+    <h1>ImageCAS-X: A dataset and benchmark for validating coronary vessel segmentation and centerline extraction in computed tomography angiography</h1>
+
+    <p class="authors">Kit M. Bransby<sup>1</sup>, Esther Øksnebjerg<sup>1</sup>, Kristoffer Kjær<sup>1</sup>, Jacob Kirkeby<sup>1</sup>, Yasmin El Youssef<sup>2</sup>, Aïda Jiménez<sup>1</sup>, Philip R. Pedersson<sup>2</sup>, Martina de Knegt<sup>2</sup>, Klaus F. Kofoed<sup>2</sup>, Rasmus R. Paulsen<sup>1</sup></p>
+    <p class="affiliations">
+      <sup>1</sup>&thinsp;DTU Compute, Technical University of Denmark, Kongens Lyngby, Denmark<br />
+      <sup>2</sup>&thinsp;Cardiovascular Research Unit, Copenhagen University Hospital – Rigshospitalet, Copenhagen, Denmark
+    </p>
+
+    <div class="btn-row">
+      <a class="btn" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7"/><path d="M8 13h8M8 17h5"/></svg>
+        Paper
+      </a>
+      <a class="btn" href="https://github.com/kitbransby/ImageCAS-X">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+        Code
+      </a>
+      <a class="btn" href="https://zenodo.org/records/21887809">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.66 3.58 3 8 3s8-1.34 8-3v-13"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+        Download Dataset &amp; Weights
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="overview" class="section-figure">
+    <div class="container">
+      <figure>
+        <img src="assets/img/graphical_abstract.png" width="3000" height="1534" alt="Graphical abstract: the ImageCAS-X annotation types and benchmark." />
+      </figure>
+    </div>
+  </section>
+
+  <section id="highlights">
+    <div class="container">
+      <h2 class="section-title">Highlights</h2>
+      <ul class="highlights">
+        <li>
+          Voxel-wise annotations of the vessel lumen and coronary segments,
+          alongside centerlines and mesh surfaces, for 800 scans of the publicly available ImageCAS cohort.
+        </li>
+        <li>
+          Benchmarked 5 coronary-specific segmentation methods and 3 general-purpose segmentation methods, measured against the agreement between expert analysts. 
+        </li>
+        <li>
+          Performance stratified by disease, image quality, coronary
+          dominance, coronary segment, vessel diameter, and lumen attenuation.
+        </li>
+        <li>
+          The labels support development and validation of methods for lumen
+          segmentation, plaque and perivascular quantification, and haemodynamic modelling.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="benchmark">
+    <div class="container">
+      <h2 class="section-title">Benchmark</h2>
+      <p class="table-caption"><b>Table 1.</b> Quantitative comparison of vessel segmentation algorithms (top) and expert analysts (bottom) on the held-out test set.</p>
+      <div class="table-wrap">
+        <table class="results">
+          <thead>
+            <tr>
+              <th rowspan="2" scope="col">Method</th>
+              <th class="group" colspan="3" scope="colgroup"><span>Lumen Segmentation</span></th>
+              <th class="group" colspan="3" scope="colgroup"><span>Lumen Centerline</span></th>
+            </tr>
+            <tr>
+              <th class="metric" scope="col">DSC <i class="arrow">↑</i></th>
+              <th class="metric" scope="col">HD95 <i class="arrow">↓</i></th>
+              <th class="metric" scope="col">β<sup>err</sup> <i class="arrow">↓</i></th>
+              <th class="metric" scope="col">clDice <i class="arrow">↑</i></th>
+              <th class="metric" scope="col">ASSD <i class="arrow">↓</i></th>
+              <th class="metric" scope="col">HD95 <i class="arrow">↓</i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><span class="method">TotalSegmentator</span><span class="method-src">Wasserthal et al., Radiology: AI, 2023</span></th>
+              <td class="metric">70.5 <span class="sd">± 6.0</span></td>
+              <td class="metric">19.58 <span class="sd">± 6.45</span></td>
+              <td class="metric">4.6 <span class="sd">± 2.9</span></td>
+              <td class="metric">76.0 <span class="sd">± 5.3</span></td>
+              <td class="metric">2.72 <span class="sd">± 0.90</span></td>
+              <td class="metric">23.26 <span class="sd">± 7.18</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">3D-FFR-UNet</span><span class="method-src">Song et al., IEEE J-BHI, 2022</span></th>
+              <td class="metric">84.9 <span class="sd">± 5.5</span></td>
+              <td class="metric">15.93 <span class="sd">± 20.42</span></td>
+              <td class="metric">4.8 <span class="sd">± 3.5</span></td>
+              <td class="metric">89.8 <span class="sd">± 5.0</span></td>
+              <td class="metric">1.71 <span class="sd">± 1.55</span></td>
+              <td class="metric">17.01 <span class="sd">± 18.22</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">ADE-HTL</span><span class="method-src">Zhang et al., IEEE TMI, 2023</span></th>
+              <td class="metric">87.7 <span class="sd">± 2.8</span></td>
+              <td class="metric best">2.98 <span class="sd">± 3.74</span></td>
+              <td class="metric best">1.5 <span class="sd">± 1.5</span></td>
+              <td class="metric best">93.2 <span class="sd">± 3.1</span></td>
+              <td class="metric">0.74 <span class="sd">± 0.38</span></td>
+              <td class="metric best">5.63 <span class="sd">± 4.84</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">Swin-UNETR</span><span class="method-src">Hatamizadeh et al., MICCAI BrainLes, 2021</span></th>
+              <td class="metric">87.8 <span class="sd">± 2.7</span></td>
+              <td class="metric">3.18 <span class="sd">± 3.68</span></td>
+              <td class="metric">3.8 <span class="sd">± 2.3</span></td>
+              <td class="metric">92.6 <span class="sd">± 3.0</span></td>
+              <td class="metric">0.78 <span class="sd">± 0.36</span></td>
+              <td class="metric">6.15 <span class="sd">± 5.12</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">ImageCAS</span><span class="method-src">Zeng et al., CMIG, 2023</span></th>
+              <td class="metric">87.9 <span class="sd">± 2.9</span></td>
+              <td class="metric">4.46 <span class="sd">± 4.87</span></td>
+              <td class="metric">4.7 <span class="sd">± 3.1</span></td>
+              <td class="metric">91.7 <span class="sd">± 3.5</span></td>
+              <td class="metric">0.89 <span class="sd">± 0.45</span></td>
+              <td class="metric">7.82 <span class="sd">± 6.01</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">nnU-Net</span><span class="method-src">Isensee et al., Nature Methods, 2021</span></th>
+              <td class="metric">89.8 <span class="sd">± 3.2</span></td>
+              <td class="metric">7.09 <span class="sd">± 12.64</span></td>
+              <td class="metric">5.4 <span class="sd">± 3.5</span></td>
+              <td class="metric">92.3 <span class="sd">± 3.6</span></td>
+              <td class="metric">1.02 <span class="sd">± 0.75</span></td>
+              <td class="metric">10.41 <span class="sd">± 13.41</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">nnU-Net + clDice</span><span class="method-src">Shit et al., CVPR, 2021</span></th>
+              <td class="metric">90.0 <span class="sd">± 3.5</span></td>
+              <td class="metric">9.71 <span class="sd">± 15.35</span></td>
+              <td class="metric">8.0 <span class="sd">± 4.4</span></td>
+              <td class="metric">91.7 <span class="sd">± 3.9</span></td>
+              <td class="metric">1.20 <span class="sd">± 0.99</span></td>
+              <td class="metric">12.93 <span class="sd">± 14.21</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">CAS-Net</span><span class="method-src">Dong et al., Medical Image Analysis, 2023</span></th>
+              <td class="metric best">91.2 <span class="sd">± 2.7</span></td>
+              <td class="metric">2.99 <span class="sd">± 3.47</span></td>
+              <td class="metric">1.9 <span class="sd">± 1.5</span></td>
+              <td class="metric best">93.2 <span class="sd">± 3.2</span></td>
+              <td class="metric best">0.73 <span class="sd">± 0.35</span></td>
+              <td class="metric">5.75 <span class="sd">± 4.95</span></td>
+            </tr>
+          </tbody>
+          <tbody class="tbody-reference">
+            <tr>
+              <th scope="row"><span class="method">Inter-observer</span></th>
+              <td class="metric">92.8 <span class="sd">± 3.1</span></td>
+              <td class="metric">2.50 <span class="sd">± 3.61</span></td>
+              <td class="metric">0.4 <span class="sd">± 0.4</span></td>
+              <td class="metric">95.3 <span class="sd">± 3.5</span></td>
+              <td class="metric">0.53 <span class="sd">± 0.33</span></td>
+              <td class="metric">4.64 <span class="sd">± 5.74</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="method">ImageCAS (labels)</span><span class="method-src">Zeng et al., CMIG, 2023</span></th>
+              <td class="metric">41.8 <span class="sd">± 6.7</span></td>
+              <td class="metric">16.13 <span class="sd">± 8.28</span></td>
+              <td class="metric">7.0 <span class="sd">± 6.0</span></td>
+              <td class="metric">78.2 <span class="sd">± 6.9</span></td>
+              <td class="metric">2.23 <span class="sd">± 0.94</span></td>
+              <td class="metric">18.89 <span class="sd">± 8.91</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">
+        Values are mean ± standard deviation. <b>Bold</b> indicates the best performing algorithm.
+        <b>DSC</b> Dice similarity coefficient (%). <b>HD95</b> 95th percentile Hausdorff distance (mm).
+        <b>β<sup>err</sup></b> Betti number error. <b>clDice</b> centerline Dice (%).
+        <b>ASSD</b> average symmetric surface distance (mm).
+      </p>
+    </div>
+  </section>
+
+  <section id="citation">
+    <div class="container">
+      <h2 class="section-title">Citation</h2>
+      <div class="citation-block">
+        <button class="copy-btn" id="copy-bibtex" type="button">Copy</button>
+        <pre class="bibtex" id="bibtex-text">@article{bransby2026imagecasx,
+  title   = {ImageCAS-X: A dataset and benchmark for validating coronary vessel
+             segmentation and centerline extraction in computed tomography angiography},
+  author  = {Bransby, Kit M. and {\O}ksnebjerg, Esther and Kj{\ae}r, Kristoffer and
+             Kirkeby, Jacob and El Youssef, Yasmin and Jim{\'e}nez, A{\"i}da and
+             Pedersson, Philip R. and de Knegt, Martina and Kofoed, Klaus F. and
+             Paulsen, Rasmus R.},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <ul class="contact-list">
+        <li>
+          <span class="role">Corresponding author</span>
+          <span class="name">Kit M. Bransby</span>
+          <a href="mailto:kimbr@dtu.dk">kimbr@dtu.dk</a>
+        </li>
+        <li>
+          <span class="role">Corresponding author</span>
+          <span class="name">Rasmus R. Paulsen</span>
+          <a href="mailto:rapa@dtu.dk">rapa@dtu.dk</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p><a href="https://www.compute.dtu.dk/">DTU Compute</a>, Technical University of Denmark</p>
+    <p>&copy; 2026 Kit M. Bransby et al. · Page last updated 2026-08-11.</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

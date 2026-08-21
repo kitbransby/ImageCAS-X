@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imagecas-x"
+version = "0.1.0"
+description = "A benchmark framework for coronary artery segmentation on cardiac CT angiography (CCTA)"
+readme = "README.MD"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+# NOTE: torch is not listed here. Install it yourself first, with a
+# CUDA build that matches your system (see https://pytorch.org/get-started/locally/),
+# otherwise pip may resolve a wheel built against the wrong CUDA version.
+dependencies = [
+    "numpy",
+    "scipy",
+    "scikit-image",
+    "scikit-learn",
+    "SimpleITK",
+    "vtk",
+    "tqdm",
+    "matplotlib",
+    "openpyxl",
+]
+
+[tool.setuptools]
+py-modules = ["train", "inference", "evaluate"]
+
+[tool.setuptools.packages.find]
+include = [
+    "augmentation*",
+    "dataloading*",
+    "losses*",
+    "models*",
+    "postprocessing*",
+    "preprocessing*",
+    "utils*",
+]

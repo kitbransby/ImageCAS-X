@@ -1,0 +1,44 @@
+{
+    "method_name": "ade_htl_stage1_coarse",
+    "description": "ADE-HTL Stage 1 (ADE coarse location): 3D U-Net trained on a DILATED GT mask at 0.5mm on 256x256x64 crops, producing the coarse coronary mask that bounds the ROI and carries the anatomical distance fields. Zhang et al. IEEE TMI 43(2) 2024, Sec. III-A.1.",
+    "input_type": "random_crop",
+    "output_type": "mask_sigmoid",
+    "data": {
+        "params": {
+            "patch_size": [
+                256,
+                256,
+                64
+            ],
+            "min_fg_fraction": 0.5
+        }
+    },
+    "preprocessing": {
+        "steps": [
+            "resample",
+            "dilate_mask",
+            "normalise_to_range"
+        ],
+        "params": {
+            "dilate_mask": {
+                "radius": 2
+            }
+        }
+    },
+    "model": {
+        "name": "imagecas_coarse",
+        "params": {
+            "in_channels": 1,
+            "base_ch": 32
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "dice_ce",
+        "params": {}
+    },
+    "training": {
+        "batch_size": 2,
+        "lr": 0.0001
+    }
+}

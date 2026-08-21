@@ -1,0 +1,39 @@
+{
+    "method_name": "cas_net",
+    "description": "CAS-Net: Multi-Attention Multi-Scale 3D U-Net. Dong et al. MedIA 2023.",
+    "input_type": "random_crop",
+    "output_type": "mask_2ch_sigmoid",
+    "data": {
+        "params": {
+            "patch_size": [
+                128,
+                160,
+                160
+            ],
+            "min_fg_fraction": 0.5
+        }
+    },
+    "model": {
+        "name": "cas_net",
+        "params": {
+            "classes": 2,
+            "channels": 1
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "multiclass_dice",
+        "params": {}
+    },
+    "training": {
+        "batch_size": 5,
+        "lr": 0.0001
+    },
+    "postprocessing": {
+        "steps": [
+            "argmax_binarize",
+            "keep_components_larger_than_100_voxels"
+        ],
+        "params": {}
+    }
+}

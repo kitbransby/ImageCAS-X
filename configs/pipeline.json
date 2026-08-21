@@ -1,0 +1,180 @@
+{
+    "data": {
+        "volume_dir": "volumes",
+        "gt_mask_dir": "segmentations",
+        "volume_suffix": ".img.nii.gz",
+        "mask_suffix": ".coronary.nii.gz",
+        "filelist_dir": "filelist",
+        "file_extension": ".nii.gz",
+        "params": {
+            "inference_overlap": 0.5,
+            "inference_weighting": "gaussian",
+            "inference_gaussian_sigma_scale": 0.125,
+            "inference_mirror_tta": true,
+            "centerlines_dir": "centerlines",
+            "centerline_samples_dir": "centerline_samples"
+        }
+    },
+    "preprocessing": {
+        "steps": [
+            "resample",
+            "normalise_to_range"
+        ],
+        "params": {
+            "resample": {
+                "target_spacing": 0.5
+            },
+            "normalise_to_range": {
+                "hu_min": -200,
+                "hu_max": 1000,
+                "out_min": 0.0,
+                "out_max": 1.0
+            }
+        }
+    },
+    "augmentation": {
+        "steps": [
+            "random_flip",
+            "gaussian_noise",
+            "gaussian_blur",
+            "multiplicative_brightness",
+            "contrast",
+            "simulate_low_resolution",
+            "gamma_invert",
+            "gamma"
+        ],
+        "params": {
+            "random_flip": {
+                "axes": [
+                    0,
+                    1
+                ],
+                "p_per_axis": 0.5
+            },
+            "gaussian_noise": {
+                "p": 0.1,
+                "variance_range": [
+                    0.0,
+                    0.01
+                ]
+            },
+            "gaussian_blur": {
+                "p": 0.2,
+                "sigma_range": [
+                    0.5,
+                    1.0
+                ]
+            },
+            "multiplicative_brightness": {
+                "p": 0.15,
+                "multiplier_range": [
+                    0.75,
+                    1.25
+                ]
+            },
+            "contrast": {
+                "p": 0.15,
+                "contrast_range": [
+                    0.75,
+                    1.25
+                ]
+            },
+            "simulate_low_resolution": {
+                "p": 0.25,
+                "zoom_range": [
+                    0.5,
+                    1.0
+                ]
+            },
+            "gamma_invert": {
+                "p": 0.1,
+                "gamma_range": [
+                    0.7,
+                    1.5
+                ],
+                "invert": true
+            },
+            "gamma": {
+                "p": 0.3,
+                "gamma_range": [
+                    0.7,
+                    1.5
+                ],
+                "invert": false
+            }
+        }
+    },
+    "training": {
+        "epochs": 1000,
+        "weight_decay": 1e-08,
+        "optimizer": "adam",
+        "scheduler": "poly",
+        "scheduler_params": {
+            "power": 0.9
+        },
+        "num_workers": 14,
+        "train_iters_per_epoch": 250,
+        "val_iters_per_epoch": 50,
+        "checkpoint_metric": "dice"
+    },
+    "postprocessing": {
+        "steps": [
+            "threshold",
+            "keep_components_larger_than_100_voxels"
+        ],
+        "params": {
+            "threshold": {
+                "threshold": 0.5
+            }
+        }
+    },
+    "evaluation": {
+        "metrics": [
+            "dice",
+            "hd95",
+            "cl_dice",
+            "centerline_md",
+            "centerline_hd95",
+            "volume_pred_ml",
+            "volume_gt_ml",
+            "volume_mad_ml",
+            "volume_bias_ml",
+            "betti_error_1",
+            "betti_error_2"
+        ],
+        "save_predictions": true,
+        "descriptors_file": "Descriptors.xlsx",
+        "descriptors_id_column": "Scan ID",
+        "stratify_by": [
+            "Image Quality",
+            "Dominance",
+            "Disease"
+        ],
+        "point_metrics": {
+            "roi_size_mm": 8.0,
+            "bins": {
+                "dist_mm": [
+                    25,
+                    50,
+                    75,
+                    100,
+                    125,
+                    150
+                ],
+                "hu": [
+                    150,
+                    250,
+                    350,
+                    450
+                ],
+                "diameter_mm": [
+                    1.0,
+                    1.5,
+                    2.0,
+                    2.5,
+                    3.0
+                ]
+            }
+        }
+    }
+}

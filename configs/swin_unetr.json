@@ -1,0 +1,47 @@
+{
+    "method_name": "swin_unetr",
+    "description": "Swin UNETR: Swin Transformer encoder + CNN decoder for 3D segmentation. Hatamizadeh et al. BrainLes/MICCAI 2022 (arXiv:2201.01266). Fully-supervised segmentation architecture only (no self-supervised pretraining stage).",
+    "input_type": "random_crop",
+    "output_type": "mask_sigmoid",
+    "data": {
+        "params": {
+            "patch_size": 96,
+            "min_fg_fraction": 0.5
+        }
+    },
+    "model": {
+        "name": "swin_unetr",
+        "params": {
+            "in_channels": 1,
+            "out_channels": 1,
+            "feature_size": 48,
+            "depths": [
+                2,
+                2,
+                2,
+                2
+            ],
+            "num_heads": [
+                3,
+                6,
+                12,
+                24
+            ],
+            "window_size": [
+                7,
+                7,
+                7
+            ],
+            "drop_path_rate": 0.1
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "dice",
+        "params": {}
+    },
+    "training": {
+        "batch_size": 4,
+        "lr": 0.01
+    }
+}

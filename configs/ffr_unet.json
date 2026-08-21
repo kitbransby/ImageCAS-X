@@ -1,0 +1,31 @@
+{
+    "method_name": "ffr_unet",
+    "description": "FFR-UNet: Dense encoder + Residual decoder. along-song/3D_CAS. PyTorch port of Keras original.",
+    "input_type": "random_crop",
+    "output_type": "mask_sigmoid",
+    "data": {
+        "params": {
+            "patch_size": 64,
+            "min_fg_fraction": 0.5
+        }
+    },
+    "model": {
+        "name": "ffr_unet",
+        "params": {
+            "in_channels": 1,
+            "base_filters": 32,
+            "transition_ratio": 1.5
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "dice",
+        "params": {
+            "smooth": 1.0
+        }
+    },
+    "training": {
+        "batch_size": 12,
+        "lr": 0.01
+    }
+}

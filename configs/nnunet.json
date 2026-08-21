@@ -1,0 +1,6 @@
+{
+    "method_name": "nnunet",
+    "model": {
+        "name": "nnunet"
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "method_name": "imagecas_stage3_patch_64",
+    "description": "ImageCAS Stage 3: 3D U-Net++ patch segmentation at the 64^3 scale. Trains on skeleton-centred patches from the Stage 2 (dilated) coarse net. Zeng et al. CMIG 2023.",
+    "input_type": "patch",
+    "output_type": "mask_sigmoid",
+    "data": {
+        "params": {
+            "patch_size": 64,
+            "centers_dir": "",
+            "skip_empty": true
+        }
+    },
+    "model": {
+        "name": "imagecas_patch",
+        "params": {
+            "in_channels": 1,
+            "base_ch": 32,
+            "depth": 4
+        },
+        "checkpoint": null
+    },
+    "loss": {
+        "name": "deep_supervision_dice",
+        "params": {
+            "smooth": 1.0
+        }
+    },
+    "training": {
+        "batch_size": 8,
+        "lr": 0.01
+    }
+}
