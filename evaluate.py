@@ -190,7 +190,7 @@ def evaluate(config_path: str, results_dir: str, num_workers: int = 8):
         all_results[scan_id] = metrics
         if points is not None:
             all_points[scan_id] = points
-        print(f"  {scan_id}: {metrics}")
+        # print(f"  {scan_id}: {metrics}")
 
     if num_workers <= 1:
         for scan_id in tqdm(scan_ids):
