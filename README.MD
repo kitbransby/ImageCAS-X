@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="https://arxiv.org"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-preprint-b31b1b.svg"></a>
+  <a href="https://arxiv.org/abs/2608.30404"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-preprint-b31b1b.svg"></a>
   <a href="https://kitbransby.github.io/ImageCAS-X/"><img alt="Website" src="https://img.shields.io/badge/website-ImageCAS--X-brightgreen.svg"></a>
 </p>
 
@@ -37,7 +37,7 @@
 
 ## Dataset
 
-The dataset is described in our publication: "ImageCAS-X: a dataset and benchmark for coronary artery segmentation and centerline extraction in coronary CT angiography" <a href="https://arxiv.org"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-preprint-b31b1b.svg"></a>. Available to download here:   <a href="https://kitbransby.github.io/ImageCAS-X/"><img alt="Website" src="https://img.shields.io/badge/website-ImageCAS--X-brightgreen.svg"></a>
+The dataset is described in our publication: "ImageCAS-X: a dataset and benchmark for coronary artery segmentation and centerline extraction in coronary CT angiography" <a href="https://arxiv.org/abs/2608.30404"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-preprint-b31b1b.svg"></a>. Available to download here:   <a href="https://kitbransby.github.io/ImageCAS-X/"><img alt="Website" src="https://img.shields.io/badge/website-ImageCAS--X-brightgreen.svg"></a>
 
 The following labels are computed:
 
